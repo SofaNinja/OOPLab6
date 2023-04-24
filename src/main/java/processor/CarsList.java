@@ -1,4 +1,4 @@
-package carsProcessor;
+package processor;
 
 import java.time.Year;
 import java.util.Arrays;
@@ -8,16 +8,29 @@ import java.util.Objects;
 public class CarsList{
     private int size = 0;
     private Car[] cars = new Car[12];
-    public void addCar(Car car) {
-        ensureCapacity(size + 1);
-        cars[size++] = car;
-    }
     public Car[] getCars(){ return cars; }
     public int getSize() { return size; }
     public void setSize(int size) { this.size = size; }
     public void setCarsList(Car[] cards){
         cars = cards;
         size = cars.length;
+    }
+    public void addCar(Car car) {
+        ensureCapacity(size + 1);
+        cars[size++] = car;
+    }
+    public void deleteById(int id){
+        Car[] cards = new Car[cars.length-1];
+        int num = 0;
+
+        for (int i = 0, k = 0; i < size; i++) {
+            if (cars[i].getId() != id) {
+                cards[k] = cars[i];
+                k++;
+            }else num++;
+        }
+        size -= num;
+        cars = Arrays.copyOf(cards, cards.length);
     }
     public void printCarsOfTheSameModel(String model) {
         for (int i = 0; i < size; i++) {
@@ -49,19 +62,6 @@ public class CarsList{
         System.arraycopy(cars, 0, newArray, 0, size);
         Arrays.sort(newArray, Comparator.comparing(Car::getPrice).reversed().thenComparing(Car::getReleaseYear));
         System.arraycopy(newArray, 0, cars, 0, size);
-    }
-    public void deleteById(int id){
-        Car[] cards = new Car[cars.length-1];
-        int num = 0;
-
-        for (int i = 0, k = 0; i < size; i++) {
-            if (cars[i].getId() != id) {
-                cards[k] = cars[i];
-                k++;
-            }else num++;
-        }
-        size -= num;
-        cars = Arrays.copyOf(cards, cards.length);
     }
 
     public void ensureCapacity(int newCapacity) {

@@ -1,4 +1,4 @@
-package carsProcessor;
+package processor;
 
 import java.io.Serializable;
 import java.util.Objects;

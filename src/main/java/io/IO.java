@@ -1,7 +1,8 @@
-package IO;
+package io;
 
-import carsProcessor.Car;
-import carsProcessor.CarsList;
+import processor.Car;
+import processor.CarsList;
+
 public interface IO {
     Car[] readObjects(CarsList cars);
     void writeObjects(CarsList cars);

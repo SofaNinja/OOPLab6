@@ -1,14 +1,14 @@
-package IO;
+package io;
 
-import carsProcessor.Car;
-import carsProcessor.CarsList;
+import processor.Car;
+import processor.CarsList;
 
 import java.io.*;
 
 public class IOProcessor implements IO {
 
     public Car[] readObjects(CarsList cars) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("students.dat"))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("cars.dat"))) {
             Car[] car1 = (Car[]) ois.readObject();
             System.out.println("File read success!");
             return car1;
@@ -21,7 +21,7 @@ public class IOProcessor implements IO {
     }
 
     public void writeObjects(CarsList cars) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("students.dat"))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("cars.dat"))) {
             oos.writeObject(cars.getCars());
             System.out.println("File write success!");
         } catch (IOException e) {

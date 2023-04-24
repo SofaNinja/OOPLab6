@@ -1,12 +1,30 @@
-package UI;
+package functions;
 
-import carsProcessor.Car;
-import carsProcessor.CarsList;
+import processor.Car;
+import processor.CarsList;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class CarsFunctionProcessor implements CarsFunctions {
-    public void printAllCars(CarsList cars) {
+    @Override
+    public void createCarsArray(CarsList cars) {
+        cars.addCar(new Car(1, "Camry", 2015, 15000, "AA1234BB"));
+        cars.addCar(new Car(2, "Corolla", 2018, 18000, "BC2345CD"));
+        cars.addCar(new Car(3, "RAV4", 2016, 12000, "DE3456EF"));
+        cars.addCar(new Car(4, "Highlander", 2017, 14000, "FG4567GH"));
+        cars.addCar(new Car(5, "Prius", 2014, 10000, "HI5678IJ"));
+        cars.addCar(new Car(6, "Camry", 2019, 20000, "KL6789MN"));
+        cars.addCar(new Car(7, "Corolla", 2017, 16000, "OP7890QR"));
+        cars.addCar(new Car(8, "RAV4", 2015, 13000, "ST9012UV"));
+        cars.addCar(new Car(9, "Highlander", 2016, 15000, "WX1234YZ"));
+        cars.addCar(new Car(10, "Camry", 2020, 22000, "AB2345CD"));
+        cars.addCar(new Car(11, "Corolla", 2019, 19000, "EF3456GH"));
+        cars.addCar(new Car(12, "RAV4", 2018, 17000, "IJ4567KL"));
+    }
+    public void printCarsList(CarsList cars) {
         System.out.println(cars.getSize());
         System.out.println(cars);
     }
@@ -30,16 +48,17 @@ public class CarsFunctionProcessor implements CarsFunctions {
         int id = scanner.nextInt();
         cars.deleteById(id);
     }
-    public void printCarOfTheSameModel(CarsList cars, Scanner scanner) {
+    public void printCarOfTheSameModelByReleaseYear(CarsList cars, Scanner scanner) {
         System.out.println("Enter model of cars >> ");
         String model = scanner.next();
-
+        List<Car> carsList = new ArrayList<>(List.of(cars.getCars()));
+        carsList.sort(Comparator.comparing(Car::getReleaseYear));
         cars.printCarsOfTheSameModel(model);
     }
     public void printModelInUseMoreThenYears(CarsList cars, Scanner scanner) {
         System.out.println("Enter model >> ");
         String model = scanner.next();
-        System.out.println("Enter years in use >> ");
+        System.out.println("Enter years in use more then >> ");
         int exploitationYears = scanner.nextInt();
 
         cars.printModelInUseMoreThenYears(model, exploitationYears);
@@ -54,20 +73,6 @@ public class CarsFunctionProcessor implements CarsFunctions {
     }
     public void sortByPrice(CarsList cars, Scanner scanner){
         cars.sortByPrice();
-        printAllCars(cars);
-    }
-    public void createCarsArray(CarsList cars) {
-        cars.addCar(new Car(1, "Camry", 2015, 15000, "AA1234BB"));
-        cars.addCar(new Car(2, "Corolla", 2018, 18000, "BC2345CD"));
-        cars.addCar(new Car(3, "RAV4", 2016, 12000, "DE3456EF"));
-        cars.addCar(new Car(4, "Highlander", 2017, 14000, "FG4567GH"));
-        cars.addCar(new Car(5, "Prius", 2014, 10000, "HI5678IJ"));
-        cars.addCar(new Car(6, "Camry", 2019, 20000, "KL6789MN"));
-        cars.addCar(new Car(7, "Corolla", 2017, 16000, "OP7890QR"));
-        cars.addCar(new Car(8, "RAV4", 2015, 13000, "ST9012UV"));
-        cars.addCar(new Car(9, "Highlander", 2016, 15000, "WX1234YZ"));
-        cars.addCar(new Car(10, "Camry", 2020, 22000, "AB2345CD"));
-        cars.addCar(new Car(11, "Corolla", 2019, 19000, "EF3456GH"));
-        cars.addCar(new Car(12, "RAV4", 2018, 17000, "IJ4567KL"));
+        printCarsList(cars);
     }
 }
